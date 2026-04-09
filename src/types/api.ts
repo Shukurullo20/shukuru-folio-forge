@@ -3,7 +3,7 @@ export interface BlogItem {
   title: string;
   slug: string;
   date: string;
-  text?: string;
+  short_description?: string;
 }
 
 export interface BlogDetail {
@@ -48,7 +48,7 @@ export interface LinkItem {
   id: number;
   title: string;
   url: string;
-  icon_link: string;
+  icon_link: string | null;
   image: ImageItem | null;
 }
 
@@ -72,21 +72,21 @@ export interface ExperienceDetail {
 export interface KnowledgeItem {
   slug: string;
   title: string;
-  status: string;
+  status: 'learning' | 'learned' | 'dropped';
   started_at: string;
   finally_at: string | null;
 }
 
 export interface KnowledgeDetail {
   content_type: 'KNOW_KNOWING';
-  know_knowing: { slug: string; title: string; text: string; status: string; started_at: string; finally_at: string | null };
+  know_knowing: { slug: string; title: string; text: string; status: 'learning' | 'learned' | 'dropped'; started_at: string; finally_at: string | null };
 }
 
 export interface SocialLink {
   id: number;
   alt: string;
   link: string;
-  icon_link: string;
+  icon_link: string | null;
   image_path: string;
   image_alt: string;
 }
@@ -101,4 +101,10 @@ export interface ResumeItem {
   title: string;
   is_active: boolean;
   resume_file: string;
+}
+
+export interface StackCategory {
+  title: string;
+  id: number;
+  stacks: { name: string; category_id: number; id: number }[];
 }

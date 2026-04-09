@@ -8,7 +8,7 @@ export function RichTextRenderer({ html }: Props) {
   const processed = prefixMediaSrcs(html);
   return (
     <div
-      className="prose dark:prose-invert max-w-none"
+      className="ck-prose"
       dangerouslySetInnerHTML={{ __html: processed }}
     />
   );

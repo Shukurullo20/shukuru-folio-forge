@@ -29,7 +29,9 @@ export default function KnowledgeListPage() {
               <span className="text-sm block" style={{ color: 'var(--fg)' }}>{item.title}</span>
               <div className="flex items-center gap-2 mt-1">
                 <StatusBadge status={item.status} />
-                <span className="text-xs" style={{ color: 'var(--fg3)' }}>{formatDate(item.started_at)}</span>
+                <span className="text-xs" style={{ color: 'var(--fg3)' }}>
+                  {formatDate(item.started_at)} — {item.finally_at ? formatDate(item.finally_at) : 'Present'}
+                </span>
               </div>
             </div>
           </div>

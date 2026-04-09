@@ -3,19 +3,20 @@ interface Props {
 }
 
 export function StatusBadge({ status }: Props) {
-  const isCompleted = status === 'completed';
-  const isInProgress = status === 'in_progress' || status === 'learning';
+  const isGreen = status === 'completed' || status === 'learned';
+  const isYellow = status === 'in_progress' || status === 'learning';
+  const isBlue = status === 'learning';
 
-  const bgColor = isCompleted
+  const bgColor = isGreen
     ? 'rgba(42,157,143,0.1)'
-    : isInProgress
-    ? 'rgba(234,179,8,0.1)'
+    : isYellow
+    ? 'rgba(59,130,246,0.1)'
     : 'rgba(150,150,150,0.1)';
 
-  const textColor = isCompleted
+  const textColor = isGreen
     ? 'var(--accent)'
-    : isInProgress
-    ? '#ca8a04'
+    : isYellow
+    ? '#3b82f6'
     : 'var(--fg3)';
 
   const label = status.replace('_', ' ');

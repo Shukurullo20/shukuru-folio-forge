@@ -58,19 +58,26 @@ export default function ExperienceDetailPage() {
         <div className="mb-6">
           <h2 className="text-sm font-semibold mb-3" style={{ color: 'var(--fg)' }}>Links</h2>
           <div className="flex flex-col gap-2">
-            {links.map(link => (
-              <a
-                key={link.id}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs transition-opacity hover:opacity-70"
-                style={{ color: '#2a9d8f' }}
-              >
-                <ExternalLink size={12} />
-                {link.title}
-              </a>
-            ))}
+            {links.map(link => {
+              const iconSrc = link.icon_link || (link.image ? mediaUrl(link.image.filename) : null);
+              return (
+                <a
+                  key={link.id}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs transition-opacity hover:opacity-70"
+                  style={{ color: '#2a9d8f' }}
+                >
+                  {iconSrc ? (
+                    <img src={iconSrc} alt={link.title} width={12} height={12} className="rounded-sm" />
+                  ) : (
+                    <ExternalLink size={12} />
+                  )}
+                  {link.title}
+                </a>
+              );
+            })}
           </div>
         </div>
       )}

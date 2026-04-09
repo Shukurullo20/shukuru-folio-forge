@@ -10,9 +10,13 @@ export function ReadingTracker({ slug, contentType }: Props) {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      api.trackReading(slug, contentType);
-    }, 10000);
+    const tick = () => {
+      if (!document.hidden) {
+        api.trackReading(slug, contentType);
+      }
+    };
+
+    intervalRef.current = setInterval(tick, 15000);
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);

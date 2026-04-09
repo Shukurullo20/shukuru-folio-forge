@@ -13,6 +13,7 @@ import ExperienceDetailPage from "./pages/ExperienceDetailPage";
 import KnowledgeListPage from "./pages/KnowledgeListPage";
 import KnowledgeDetailPage from "./pages/KnowledgeDetailPage";
 import ResumePage from "./pages/ResumePage";
+import SkillsPage from "./pages/SkillsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/knowledge" element={<KnowledgeListPage />} />
           <Route path="/knowledge/:slug" element={<KnowledgeDetailPage />} />
           <Route path="/resume" element={<ResumePage />} />
+          <Route path="/skills" element={<SkillsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
