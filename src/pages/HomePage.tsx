@@ -26,6 +26,11 @@ export default function HomePage() {
 
   const profileImgUrl = imageUrl ? (imageUrl.startsWith('http') ? imageUrl : `${API_BASE_URL}${imageUrl}`) : '';
 
+  const getThumbnail = (images: any[]) => {
+    if (!images?.length) return null;
+    return images.find((i: any) => i.role === 'thumbnail') || images[0];
+  };
+
   return (
     <div className="animate-fade-in">
       {/* Hero */}
@@ -92,24 +97,39 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {projects.map(project => (
-              <Link
-                key={project.slug}
-                to={`/projects/${project.slug}`}
-                className="p-4 rounded-lg transition-opacity hover:opacity-70"
-                style={{ border: '1px solid var(--border)' }}
-              >
-                <div className="flex items-start justify-between mb-2">
-                  <span className="text-sm font-medium" style={{ color: 'var(--fg)' }}>{project.title}</span>
-                  <ArrowRight size={12} className="mt-1 flex-shrink-0" style={{ color: 'var(--fg3)' }} />
-                </div>
-                <p className="text-xs mb-3" style={{ color: 'var(--fg2)' }}>{project.short_description}</p>
-                <div className="flex items-center gap-2">
-                  <StatusBadge status={project.status} />
-                  <span className="text-xs" style={{ color: 'var(--fg3)' }}>{project.date_in_year}</span>
-                </div>
-              </Link>
-            ))}
+            {projects.map(project => {
+              const thumb = getThumbnail(project.images);
+              return (
+                <Link
+                  key={project.slug}
+                  to={`/projects/${project.slug}`}
+                  className="rounded-lg overflow-hidden transition-all hover:opacity-80"
+                  style={{ border: '1px solid var(--border)' }}
+                >
+                  {thumb && (
+                    <div className="aspect-video overflow-hidden" style={{ background: 'var(--bg2)' }}>
+                      <img
+                        src={mediaUrl(thumb.filename)}
+                        alt={thumb.alt || project.title}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <div className="p-4">
+                    <div className="flex items-start justify-between mb-1">
+                      <span className="text-sm font-medium" style={{ color: 'var(--fg)' }}>{project.title}</span>
+                      <ArrowRight size={12} className="mt-1 flex-shrink-0 ml-2" style={{ color: 'var(--fg3)' }} />
+                    </div>
+                    <p className="text-xs mb-3 line-clamp-2" style={{ color: 'var(--fg2)' }}>{project.short_description}</p>
+                    <div className="flex items-center gap-2">
+                      <StatusBadge status={project.status} />
+                      <span className="text-xs" style={{ color: 'var(--fg3)' }}>{project.date_in_year}</span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </section>
       )}
